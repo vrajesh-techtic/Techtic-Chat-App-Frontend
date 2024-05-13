@@ -3,16 +3,21 @@ import { Avatar, Dropdown, Layout, Menu, Space } from "antd";
 import { IoIosArrowDown } from "react-icons/io";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { clearUserProfile } from "../redux-toolkit-persist/slice/userSlice";
 const { Header } = Layout;
 
 
 const CustomHeader = () => {
 
   const navigate = useNavigate();
-  
+  const dispatch = useDispatch();
+  const userData = useSelector((state)=>state.user.userObj);
   const handleSignout=()=>{
     localStorage.clear();
-    Cookies.remove('TokenId')
+    Cookies.remove('access_token');
+    Cookies.remove('refresh_token');
+    dispatch(clearUserProfile());
     navigate("/login");
   }
   console.log("component re");
@@ -26,7 +31,7 @@ const CustomHeader = () => {
     {
       label: <div 
       // to={'/login'}
-       onClick={handleSignout}>Sign Out</div>,
+       onClick={()=>handleSignout()}>Sign Out</div>,
     },
   ];
   
@@ -75,7 +80,7 @@ const CustomHeader = () => {
                   />
 
                   <div className="capitalize font-medium font-poppins leading-6	text-xl hover: text-white">
-                    {"test"}
+                    {userData.username}
                   </div>
                   {/* <<AiOutlineDown /> */}
                   <span><IoIosArrowDown className="hover: text-white"/></span>

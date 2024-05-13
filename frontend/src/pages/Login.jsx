@@ -9,12 +9,14 @@ import notificationProvider from '../utils/notificationProvider'
 import axios from 'axios'
 import CustomSignupLoginHeader from '../components/CustomSignupLoginHeader'
 import WithoutAuth from '../routerProtector/WithoutAuth'
+import { useDispatch } from 'react-redux'
+import { saveUserProfile } from '../redux-toolkit-persist/slice/userSlice'
 
 
 
 const Login = () => {
   const { openNotification, contextHolder } = notificationProvider();
-
+  const dispatch = useDispatch();
   const initialValues={
     email: "",
     password: ""
@@ -55,7 +57,8 @@ const Login = () => {
         if (response.data.status == true) {
           openNotification(response.data.message, "success");
           navigate("/");
-          localStorage.setItem("user", JSON.stringify(response.data.data));
+          dispatch(saveUserProfile(response.data.data))
+          // localStorage.setItem("user", JSON.stringify(response.data.data));
           resetForm();
           return;
         }
@@ -63,7 +66,7 @@ const Login = () => {
           console.log("response -->", response);
 
           openNotification(response.data.message, "error");
-          resetForm();
+          // resetForm();
           return;
         }
       } catch (error) {

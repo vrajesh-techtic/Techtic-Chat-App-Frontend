@@ -7,20 +7,14 @@ const userSlice = createSlice({
     userObj: null,
   },
   reducers: {
-    saveProfileUser: (state, action) => {
+    saveUserProfile: (state, action) => {
       state.userObj = action.payload;
     },
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(loginUser.pending, (state) => {
-        state.userObj = null;
-      })
-      .addCase(loginUser.fulfilled, (state, action) => {
-        state.userObj = action.payload;
-      });
+    clearUserProfile:(state)=>{
+      state.userObj = null; 
+    }
   },
 });
 
 export default userSlice.reducer;
-export const { clearUser } = userSlice.actions;
+export const { saveUserProfile, clearUserProfile } = userSlice.actions;
