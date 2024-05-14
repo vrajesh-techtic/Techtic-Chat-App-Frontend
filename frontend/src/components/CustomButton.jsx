@@ -1,9 +1,9 @@
 import React from "react";
 
-const CustomButton = ({ className, text, onClick }) => {
+const CustomButton = ({ className, text, onClick, type="submit" }) => {
   return (
     <div>
-      <button type="submit" className={className} onClick={onClick}>
+      <button type={type} className={className} onClick={onClick}>
         {text}
       </button>
     </div>

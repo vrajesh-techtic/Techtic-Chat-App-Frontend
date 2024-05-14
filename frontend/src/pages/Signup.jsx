@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Divider } from "antd";
 import CustomButton from "../components/CustomButton";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { customSignupValidations } from "../utils/loginSignupValidators";
 import axios from "axios";
@@ -12,13 +12,16 @@ import StepSignup3 from "../components/StepSignup3";
 import StepSignup4 from "../components/StepSignup4";
 import CustomSignupLoginHeader from "../components/CustomSignupLoginHeader";
 import WithoutAuth from "../routerProtector/WithoutAuth";
+import { useDispatch } from "react-redux";
+import { saveUserProfile } from "../redux-toolkit-persist/slice/userSlice";
 
 const Signup = () => {
   const { openNotification, contextHolder } = notificationProvider();
   const [step, setStep] = useState(1);
 
- 
+  const navigate = useNavigate();
 
+  const dispatch = useDispatch();
 
   const initialValues = {
     email: "",
@@ -62,21 +65,24 @@ const Signup = () => {
           dob: values?.dob,
         };
 
-        // console.log("formData -->", formData);
+        console.log("signup formData -->", formData);
 
         const response = await axios.post(
           `http://localhost:5000/api/user/signup`,
           formData,
           {
             headers: {
-              "Content-Type": "application/json",
+              "Content-Type": "multipart/form-data",
             },
+            withCredentials: true,
           }
         );
         
         if (response.data.status == true) {
-          openNotification(response.data.message, "success");
           localStorage.setItem("user", JSON.stringify(response.data.data));
+          dispatch(saveUserProfile(response.data.data));
+          navigate("/");
+          openNotification(response.data.message, "success");
           resetForm();
           return;
         }
@@ -87,7 +93,7 @@ const Signup = () => {
         }
       } catch (error) {
         console.log("Error in signup -->", error);
-        openNotification(error.response.data.message, "error");
+        openNotification(error.response.data.error, "error");
         // resetForm();
         return;
       }
@@ -172,6 +178,7 @@ const Signup = () => {
             handleBlur={handleBlur}
             touched={touched}
             values={values}
+            setValues={setValues}
           />
         )}
 
@@ -192,6 +199,7 @@ const Signup = () => {
           {step > 1 && step <= 4 && (
             <CustomButton
               onClick={() => handleStep("decrement")}
+              type={"button"}
               className={`p-[3.5%] shadow-xl  rounded-lg text-center bg-red-500 text-white text-lg font-semibold w-[100%]`}
               text={"Back"}
             />

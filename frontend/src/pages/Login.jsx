@@ -53,10 +53,9 @@ const Login = () => {
         console.log("response -->", response);
 
         if (response.data.status == true) {
-          openNotification(response.data.message, "success");
           navigate("/");
           dispatch(saveUserProfile(response.data.data));
-          // localStorage.setItem("user", JSON.stringify(response.data.data));
+          openNotification(response.data.message, "success");
           resetForm();
           return;
         }
@@ -78,8 +77,8 @@ const Login = () => {
 
   return (
     <>
-      <CustomSignupLoginHeader />
       {contextHolder}
+      <CustomSignupLoginHeader />
 
       <form
         onSubmit={handleSubmit}

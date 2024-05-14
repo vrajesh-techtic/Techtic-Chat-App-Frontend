@@ -29,7 +29,7 @@ const CustomHeader = () => {
       label: <div className="text-lg font-semibold text-center" onClick={editUserProfile}> Edit Profile </div>,
     },
     {
-      label:<div className="text-lg font-semibold text-center"> Change Password </div>,
+      label:<div className="text-lg font-semibold text-center"> Reset Password </div>,
     },
     {
       label: <div 
@@ -79,7 +79,7 @@ const CustomHeader = () => {
               <a href="/" onClick={(e) => e.preventDefault()}>
                 <Space size="small">
                   <Avatar
-                    src={"https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"}
+                    src={`${userData.profilePic}`}
                     className="w-[45px] h-[45px] rounded-full shadow-lg object-cover"
                   />
 

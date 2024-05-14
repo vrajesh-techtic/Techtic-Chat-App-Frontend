@@ -25,7 +25,8 @@ const CustomInput = ({
   onBlur,
   accept,
   selectOptionArray,
-  countryData
+  countryData,
+  optionalLabel
 }) => {
  
   return (
@@ -35,7 +36,8 @@ const CustomInput = ({
           id="label"
           className="font-semibold flex flex-row justify-start text-md mb-1"
         >
-          {label}
+          {type=="file" ? label + " "+ optionalLabel + ":" : label}
+           
         </div>
         {type !== "number" && type !== "dropdown" && type !== "date" && (
           <input
@@ -121,6 +123,7 @@ const CustomInput = ({
             {errors}
           </div>
         )}
+        
       </div>
     </>
   );

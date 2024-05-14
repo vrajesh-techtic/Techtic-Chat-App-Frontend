@@ -17,7 +17,7 @@ const CustomEditProfileLayout = ({
   setIsUploadImage,
 }) => {
   const imageChange = (e) => {
-    console.log("New image", e.target.files[0]);
+    // console.log("New image", e.target.files[0]);
 
     if(isUploadImage){
         setValues((prev) => {
@@ -157,7 +157,7 @@ const CustomEditProfileLayout = ({
                 <input
                   type="text"
                   className="pointer-events-none border-2 p-[1.5%] placeholder-black h-[10%] rounded-lg w-[85%] "
-                  placeholder={values.profilePic.toString().substring(0, values.profilePic.toString().length-20) + "...."}
+                  placeholder={values.profilePic.replace("http://localhost:5000/uploads/profile-images/","")}
                 />
                 <CustomButton
                   text={"Upload Image"}

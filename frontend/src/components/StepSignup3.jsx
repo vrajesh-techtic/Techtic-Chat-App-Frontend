@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import CustomInput from "./CustomInput";
 import axios from "axios";
 
-const StepSignup3 = ({ handleChange, handleBlur, errors, touched, values }) => {
-  const [imageError, setImageError] = useState(null);
+const StepSignup3 = ({ handleChange, handleBlur, errors, touched, values, setValues }) => {
   const [countryData, setCountryData] = useState([]);
   
   const callCountryCode = async () => {
@@ -20,6 +19,16 @@ const StepSignup3 = ({ handleChange, handleBlur, errors, touched, values }) => {
       return;
     }
   };
+
+  const imageChange = (e) => {
+        // console.log("file length -->", e.target.files.length);
+          setValues((prev) => {
+            let newObj = { ...prev };
+            newObj["profilePic"] = e.target.files[0];
+            return newObj;
+          });
+  };
+
 
   useEffect(()=>{
     callCountryCode();
@@ -47,12 +56,13 @@ const StepSignup3 = ({ handleChange, handleBlur, errors, touched, values }) => {
         name="phoneNumber"
       />
       <CustomInput
-        onChange={handleChange}
+        onChange={imageChange}
         onBlur={handleBlur}
         type="file"
         accept="image/*"
         label="Upload your profile picture"
         name="profilePic"
+        optionalLabel='(Optional)'
       />
     </>
   );

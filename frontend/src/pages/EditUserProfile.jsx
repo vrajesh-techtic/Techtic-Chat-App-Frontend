@@ -1,23 +1,28 @@
 //EditUserProfile.jsx
 
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import HomePage from "../components/HomePage";
 import axios from "axios";
 import WithAuth from "../routerProtector/WithAuth";
 import { useFormik } from "formik";
 import { customEditProfileValidation } from "../utils/editProfileValidator";
 import CustomEditProfileLayout from "../components/CustomEditProfileLayout";
-import Cookies from "js-cookie";
 import notificationProvider from "../utils/notificationProvider";
+import { saveUserProfile } from "../redux-toolkit-persist/slice/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const EditUserProfile = () => {
+
   const {contextHolder, openNotification} = notificationProvider();
   const userProfileData = useSelector((state) => state.userObj);
-  console.log("profile pic -->", userProfileData.profilePic);
+  // console.log("profile pic -->", userProfileData.profilePic);
   //   const [image, setImage] = useState("");
   const [countryData, setCountryData] = useState([]);
   const [isUploadImage, setIsUploadImage] = useState(false); 
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const callCountryCode = async () => {
     try {
       const response = await axios.get(
@@ -61,8 +66,7 @@ const EditUserProfile = () => {
     validationSchema: customEditProfileValidation,
     onSubmit: async (values) => {
       try {
-        const cookie = Cookies.get("TokenId");
-        console.log("image value -->", values.profilePic);
+
         const formData = {
           name: values.name,
           username: values.username,
@@ -73,7 +77,7 @@ const EditUserProfile = () => {
           dob: values.dob,
         };
 
-        // console.log("formData -->", formData);
+        console.log("formData -->", formData);
 
         const response = await axios.post(
           `http://localhost:5000/api/user/update-user`,
@@ -86,9 +90,12 @@ const EditUserProfile = () => {
           }
         );
         if (response.data.status) {
-            openNotification(response.data.message, "success")
+          dispatch(saveUserProfile(response.data.data));  
+          // navigate("/");
+          openNotification(response.data.message, "success");
+          setIsUploadImage(false);
+          // console.log("Response -->", response);
         }
-        console.log("Response -->", response);
       } catch (error) {
         console.log("Error in edit user profile page -->", error);
         openNotification(error.message, "error");
@@ -100,6 +107,7 @@ const EditUserProfile = () => {
   return (
     <HomePage>
       <>
+      {contextHolder}
         {/* ------- Edit profile form --------*/}
         <CustomEditProfileLayout
           userProfileData={userProfileData}
