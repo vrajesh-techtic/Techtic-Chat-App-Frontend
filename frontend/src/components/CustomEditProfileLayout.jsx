@@ -138,8 +138,6 @@ const CustomEditProfileLayout = ({
         </div>
         <div id="profilePic" className="grid grid-cols-2 gap-5 mt-[2%]">
           {isUploadImage ? (
-            <div className="grid grid-cols-2 items-center">
-            <div>
             <CustomInput
               onChange={imageChange}
               onBlur={handleBlur}
@@ -148,18 +146,7 @@ const CustomEditProfileLayout = ({
               label="Select profile picture"
               name="profilePic"
               />
-              </div>
-              <div>
 
-            <CustomButton
-            text={"Upload Image"}
-            onClick={()=>setIsUploadImage(true)}
-            className={
-                " bg-red-400 p-[0.7%] text-white rounded font-bold "
-            }
-            />
-            </div>
-            </div>
           ) : (
             <div id="upload-image">
               <div className="font-semibold justify-start text-md mb-1">
@@ -176,7 +163,7 @@ const CustomEditProfileLayout = ({
                   text={"Upload Image"}
                   onClick={()=>setIsUploadImage(true)}
                   className={
-                    " bg-red-400 p-[0.7%] text-white rounded font-bold "
+                    " bg-red-400 p-[0.4%] text-white rounded font-bold "
                   }
                 />
               </div>

@@ -57,7 +57,7 @@ const CustomInput = ({
               <select
                 name={dropdown_name}
                 value={dropdown_value}
-                className="flex flex-col border-2 rounded-l-lg p-[2%] w-[44%]"
+                className="flex flex-col border-2 rounded-l-lg p-[1.4%] w-[44%]"
                 onChange={dropdown_onChange}
                 onBlur={dropdown_onBlur}
               >
@@ -84,7 +84,7 @@ const CustomInput = ({
 
         {type == "date" && (
           <DatePicker
-            className="p-[2%] border-2 border-[#e5e7eb] font-bold"
+            className="p-[1.4%] border-2 border-[#e5e7eb] font-bold"
             style={{ fontSize: "17px" }}
             name={name}
             value={value}
