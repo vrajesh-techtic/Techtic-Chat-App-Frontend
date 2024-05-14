@@ -4,6 +4,8 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import ChatLayout from "./pages/ChatLayout";
 import EditUserProfile from "./pages/EditUserProfile";
+import UserChatUI from "./components/UserChatUI";
+import ForgotPassword from "./pages/ForgotPassword";
 
 function App() {
   return (
@@ -13,7 +15,9 @@ function App() {
         {/* <Route path="/" element={<HomePage />} /> */}
         <Route path="/login" element={<Login />}  />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/edit-user-profile" element={<EditUserProfile />} />
+        <Route path="/user-chat" element={<UserChatUI />} />
       </Routes>
     </>
   );

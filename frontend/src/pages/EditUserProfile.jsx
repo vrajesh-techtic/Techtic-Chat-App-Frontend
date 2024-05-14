@@ -13,13 +13,12 @@ import { saveUserProfile } from "../redux-toolkit-persist/slice/userSlice";
 import { useNavigate } from "react-router-dom";
 
 const EditUserProfile = () => {
-
-  const {contextHolder, openNotification} = notificationProvider();
+  const { contextHolder, openNotification } = notificationProvider();
   const userProfileData = useSelector((state) => state.userObj);
   // console.log("profile pic -->", userProfileData.profilePic);
   //   const [image, setImage] = useState("");
   const [countryData, setCountryData] = useState([]);
-  const [isUploadImage, setIsUploadImage] = useState(false); 
+  const [isUploadImage, setIsUploadImage] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -38,7 +37,6 @@ const EditUserProfile = () => {
     }
   };
 
- 
   useEffect(() => {
     callCountryCode();
   }, []);
@@ -66,7 +64,6 @@ const EditUserProfile = () => {
     validationSchema: customEditProfileValidation,
     onSubmit: async (values) => {
       try {
-
         const formData = {
           name: values.name,
           username: values.username,
@@ -90,7 +87,7 @@ const EditUserProfile = () => {
           }
         );
         if (response.data.status) {
-          dispatch(saveUserProfile(response.data.data));  
+          dispatch(saveUserProfile(response.data.data));
           // navigate("/");
           openNotification(response.data.message, "success");
           setIsUploadImage(false);
@@ -105,9 +102,9 @@ const EditUserProfile = () => {
   });
 
   return (
-    <HomePage>
-      <>
-      {contextHolder}
+    <>
+      <HomePage>
+        {contextHolder}
         {/* ------- Edit profile form --------*/}
         <CustomEditProfileLayout
           userProfileData={userProfileData}
@@ -119,13 +116,12 @@ const EditUserProfile = () => {
           values={values}
           countryData={countryData}
           handleSubmit={handleSubmit}
-          isUploadImage = {isUploadImage}
-          setIsUploadImage = {setIsUploadImage}
+          isUploadImage={isUploadImage}
+          setIsUploadImage={setIsUploadImage}
         />
-      </>
-    </HomePage>
+      </HomePage>
+    </>
   );
 };
 
 export default WithAuth(EditUserProfile);
-

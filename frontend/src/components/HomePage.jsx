@@ -8,11 +8,17 @@ const HomePage = ({children}) => {
   return (
     <>
       <CustomHeader />
-      <CustomSider/>
-      <div>
+      <div  className="">
+        <div id="sider-col">
+          <CustomSider/>
 
-      {children}
+        </div>
+        <div className="chat-col">
+          {children}
+
+        </div>
       </div>
+     
       {/* <div onClick={() => handleClick()}>Logout</div> */}
     </>
   );

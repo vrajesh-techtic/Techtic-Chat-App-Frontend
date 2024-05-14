@@ -1,5 +1,5 @@
 import { Divider } from "antd";
-import React from "react";
+import React, { useState } from "react";
 import CustomInput from "../components/CustomInput";
 import { Link, useNavigate } from "react-router-dom";
 import CustomButton from "../components/CustomButton";
@@ -15,6 +15,7 @@ import { saveUserProfile } from "../redux-toolkit-persist/slice/userSlice";
 const Login = () => {
   const { contextHolder, openNotification } = notificationProvider();
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
   const initialValues = {
     email: "",
     password: "",
@@ -56,15 +57,16 @@ const Login = () => {
           openNotification(response.data.message, "success");
           dispatch(saveUserProfile(response.data.data));
           setTimeout(()=>{
-            
+            setLoading(true);  
             navigate("/");
-          }, 500)
+          }, 1700)
+          setLoading(false);
           resetForm();
           return;
         }
         if (response.data.status == false) {
           console.log("response -->", response);
-
+          setLoading(false);
           openNotification(response.data.error, "error");
           // resetForm();
           return;
@@ -73,6 +75,7 @@ const Login = () => {
         console.log("Error in signup -->", error);
         openNotification(error.response.data.error || error.response.data.message, "error");
         resetForm();
+        setLoading(false);
         return;
       }
     },
@@ -100,6 +103,8 @@ const Login = () => {
           label="Email:"
           name="email"
         />
+        <div>
+
         <CustomInput
           errors={errors.password}
           touched={touched.password}
@@ -110,11 +115,13 @@ const Login = () => {
           placeholder="Enter the password"
           label="Password:"
           name="password"
-        />
+          />
+          <Link to={"/forgot-password"} className="text-sm font-semibold text-slate-500">Forgot Password? Click Here</Link>
+          </div>
 
         <CustomButton
           className="p-[1.5%] shadow-xl my-2 rounded-lg text-center bg-green-400 text-white text-lg font-semibold w-[100%] mx-auto"
-          text="Login"
+          text={loading ? "Redirecting to the application...": "Login"}
         />
 
         <Divider style={{ border: "1px solid #e5e7eb" }} className="my-2" />
