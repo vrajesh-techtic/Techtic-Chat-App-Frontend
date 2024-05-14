@@ -20,16 +20,20 @@ const CustomHeader = () => {
     dispatch(clearUserProfile());
     navigate("/login");
   }
+  const editUserProfile=()=>{
+    navigate("/edit-user-profile")
+  }
   console.log("component re");
   const items = [
     {
-      label: "Edit Profile",
+      label: <div className="text-lg font-semibold text-center" onClick={editUserProfile}> Edit Profile </div>,
     },
     {
-      label: "Change Profile",
+      label:<div className="text-lg font-semibold text-center"> Change Password </div>,
     },
     {
       label: <div 
+      className="text-lg font-semibold text-center"
       // to={'/login'}
        onClick={()=>handleSignout()}>Sign Out</div>,
     },

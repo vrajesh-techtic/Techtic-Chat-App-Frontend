@@ -13,7 +13,7 @@ import notificationProvider from "../utils/notificationProvider";
 
 const EditUserProfile = () => {
   const {contextHolder, openNotification} = notificationProvider();
-  const userProfileData = useSelector((state) => state.user.userObj);
+  const userProfileData = useSelector((state) => state.userObj);
   console.log("profile pic -->", userProfileData.profilePic);
   //   const [image, setImage] = useState("");
   const [countryData, setCountryData] = useState([]);

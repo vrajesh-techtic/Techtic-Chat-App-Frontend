@@ -2,7 +2,6 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
-import WithAuth from "./routerProtector/WithAuth";
 import ChatLayout from "./pages/ChatLayout";
 import EditUserProfile from "./pages/EditUserProfile";
 
