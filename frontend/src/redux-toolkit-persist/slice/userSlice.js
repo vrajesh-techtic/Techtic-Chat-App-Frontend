@@ -8,6 +8,7 @@ const userSlice = createSlice({
   },
   reducers: {
     saveUserProfile: (state, action) => {
+      // console.log("action.payload -->", action.payload);
       state.userObj = action.payload;
     },
     clearUserProfile:(state)=>{

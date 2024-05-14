@@ -82,13 +82,13 @@ const Signup = () => {
         }
         if (response.data.status == false) {
           openNotification(response.data.error, "error");
-          resetForm();
+          // resetForm();
           return;
         }
       } catch (error) {
         console.log("Error in signup -->", error);
         openNotification(error.response.data.message, "error");
-        resetForm();
+        // resetForm();
         return;
       }
     },

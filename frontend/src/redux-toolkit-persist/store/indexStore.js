@@ -9,7 +9,7 @@ import {
     PURGE,
     REGISTER,
 } from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
+import storage from "redux-persist/lib/storage";
 
 import userSlice from "../slice/userSlice";
 
@@ -30,4 +30,4 @@ const store = configureStore({
 })
 const persistor = persistStore(store);
 
-export {store, persistor}
+export {store, persistor};

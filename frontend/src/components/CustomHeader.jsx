@@ -12,7 +12,7 @@ const CustomHeader = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const userData = useSelector((state)=>state.user.userObj);
+  const userData = useSelector((state)=>state.userObj);
   const handleSignout=()=>{
     localStorage.clear();
     Cookies.remove('access_token');

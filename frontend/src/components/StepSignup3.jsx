@@ -3,8 +3,9 @@ import CustomInput from "./CustomInput";
 import axios from "axios";
 
 const StepSignup3 = ({ handleChange, handleBlur, errors, touched, values }) => {
-
+  const [imageError, setImageError] = useState(null);
   const [countryData, setCountryData] = useState([]);
+  
   const callCountryCode = async () => {
     try {
       const response = await axios.get(
