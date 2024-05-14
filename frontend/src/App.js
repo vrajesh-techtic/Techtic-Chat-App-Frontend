@@ -6,18 +6,20 @@ import ChatLayout from "./pages/ChatLayout";
 import EditUserProfile from "./pages/EditUserProfile";
 import UserChatUI from "./components/UserChatUI";
 import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 
 function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<ChatLayout />} />
+        {/* <Route path="/" element={<ChatLayout />} /> */}
         {/* <Route path="/" element={<HomePage />} /> */}
         <Route path="/login" element={<Login />}  />
         <Route path="/signup" element={<Signup />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/edit-user-profile" element={<EditUserProfile />} />
-        <Route path="/user-chat" element={<UserChatUI />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/" element={<UserChatUI />} />
       </Routes>
     </>
   );

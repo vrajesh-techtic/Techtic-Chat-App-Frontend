@@ -51,17 +51,18 @@ const Login = () => {
           }
         );
 
-        console.log("response -->", response);
+        // console.log("response -->", response);
 
         if (response.data.status == true) {
           openNotification(response.data.message, "success");
           dispatch(saveUserProfile(response.data.data));
+          setLoading(true);  
           setTimeout(()=>{
-            setLoading(true);  
             navigate("/");
-          }, 1700)
-          setLoading(false);
+            setLoading(false);
+          }, 1000)
           resetForm();
+          console.log("loading -->", loading);
           return;
         }
         if (response.data.status == false) {
