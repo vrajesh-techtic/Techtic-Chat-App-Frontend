@@ -55,18 +55,7 @@ const CustomHeader = () => {
         </div>
 
         <div className="font-bold text-xl flex flex-col">
-          {/* <img
-            src="https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
-            alt="user-profile"
-            className="h-[50px] rounded-full cursor-pointer"
-            onClick={() => setShowProfileMenu(true)}
-          />
-          {showProfileMenu && (
-            <Menu
-              // onClick={onClick}
-              items={items}
-            />
-          )} */}
+          
           <div className="mr-5">
             <Dropdown
               menu={{

@@ -13,7 +13,7 @@ import { useDispatch } from "react-redux";
 import { saveUserProfile } from "../redux-toolkit-persist/slice/userSlice";
 
 const Login = () => {
-  const { openNotification, contextHolder } = notificationProvider();
+  const { contextHolder, openNotification } = notificationProvider();
   const dispatch = useDispatch();
   const initialValues = {
     email: "",
@@ -53,22 +53,25 @@ const Login = () => {
         console.log("response -->", response);
 
         if (response.data.status == true) {
-          navigate("/");
-          dispatch(saveUserProfile(response.data.data));
           openNotification(response.data.message, "success");
+          dispatch(saveUserProfile(response.data.data));
+          setTimeout(()=>{
+            
+            navigate("/");
+          }, 500)
           resetForm();
           return;
         }
         if (response.data.status == false) {
           console.log("response -->", response);
 
-          openNotification(response.data.message, "error");
+          openNotification(response.data.error, "error");
           // resetForm();
           return;
         }
       } catch (error) {
         console.log("Error in signup -->", error);
-        openNotification(error.response.data.message, "error");
+        openNotification(error.response.data.error || error.response.data.message, "error");
         resetForm();
         return;
       }
