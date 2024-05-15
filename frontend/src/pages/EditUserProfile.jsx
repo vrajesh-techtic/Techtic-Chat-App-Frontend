@@ -15,7 +15,8 @@ import { useNavigate } from "react-router-dom";
 const EditUserProfile = () => {
   const { contextHolder, openNotification } = notificationProvider();
   const userProfileData = useSelector((state) => state.userObj);
-  // console.log("profile pic -->", userProfileData.profilePic);
+  console.log("profile pic -->", userProfileData.profilePic);
+  const email= userProfileData.email;
   //   const [image, setImage] = useState("");
   const [countryData, setCountryData] = useState([]);
   const [isUploadImage, setIsUploadImage] = useState(false);
@@ -87,7 +88,10 @@ const EditUserProfile = () => {
           }
         );
         if (response.data.status) {
-          dispatch(saveUserProfile(response.data.data));
+          console.log("user data--> ", response.data.data);
+          const resp = response.data.data;
+          resp.email=email;
+          dispatch(saveUserProfile(resp));
           // navigate("/");
           openNotification(response.data.message, "success");
           setIsUploadImage(false);
@@ -107,6 +111,7 @@ const EditUserProfile = () => {
         {contextHolder}
         {/* ------- Edit profile form --------*/}
         <CustomEditProfileLayout
+          userEmail={email}
           userProfileData={userProfileData}
           handleChange={handleChange}
           handleBlur={handleBlur}

@@ -2,8 +2,11 @@ import React from "react";
 import dayjs from "dayjs";
 import CustomInput from "../components/CustomInput";
 import CustomButton from "../components/CustomButton";
+import { Image } from "antd";
+import { FaRegEdit } from "react-icons/fa";
 
 const CustomEditProfileLayout = ({
+  userEmail,
   userProfileData,
   handleChange,
   handleBlur,
@@ -23,12 +26,14 @@ const CustomEditProfileLayout = ({
         setValues((prev) => {
           let newObj = { ...prev };
           newObj["profilePic"] = e.target.files[0];
+          // console.log("image -->", newObj.profilePic);
           return newObj;
         });
-    }
+      }
+
 
   };
-
+ 
   return (
     <form
       onSubmit={handleSubmit}
@@ -37,6 +42,15 @@ const CustomEditProfileLayout = ({
       <div className="text-zinc-600 text-xl font-bold text-center  mb-5">
         Edit Your Profile
       </div>
+      <div className="flex flex-row justify-center mb-5">
+        <Image width={100} height={100} className="rounded-full flex flex-row" src={values.profilePic} preview={false}/>
+          <div className="cursor-pointer">
+            <input type="file" className="opacity-0 absolute cursor-pointer " onChange={imageChange}/>
+            <FaRegEdit size={25} className=" cursor-pointer" />
+          </div>
+        
+      </div>
+      
       <div id="form-input-container">
         <div
           id="email-username"
@@ -49,7 +63,7 @@ const CustomEditProfileLayout = ({
 
             <input
               type="text"
-              value={userProfileData.email}
+              value={userEmail}
               className="border-2 rounded-lg p-2 w-[100%] outline-none flex flex-row align-middle pointer-events-none"
             />
           </div>
@@ -136,7 +150,10 @@ const CustomEditProfileLayout = ({
             />
           </div>
         </div>
-        <div id="profilePic" className="grid grid-cols-2 gap-5 mt-[2%]">
+
+          {/*Profile pic logic  */}
+
+        {/* <div id="profilePic" className="grid grid-cols-2 gap-5 mt-[2%]">
           {isUploadImage ? (
             <CustomInput
               onChange={imageChange}
@@ -157,7 +174,7 @@ const CustomEditProfileLayout = ({
                 <input
                   type="text"
                   className="pointer-events-none border-2 p-[1.5%] placeholder-black h-[10%] rounded-lg w-[85%] "
-                  placeholder={values.profilePic.replace("http://localhost:5000/uploads/profile-images/","")}
+                  placeholder={values.profilePic}
                 />
                 <CustomButton
                   text={"Upload Image"}
@@ -169,7 +186,7 @@ const CustomEditProfileLayout = ({
               </div>
             </div>
           )}
-        </div>
+        </div> */}
       </div>
       <CustomButton
         text="Update Profile"

@@ -77,7 +77,7 @@ const Signup = () => {
             withCredentials: true,
           }
         );
-        
+
         if (response.data.status == true) {
           localStorage.setItem("user", JSON.stringify(response.data.data));
           dispatch(saveUserProfile(response.data.data));
@@ -102,14 +102,39 @@ const Signup = () => {
 
   // increment / decrement step
 
-  const handleStep = (action, errors = null) => {
+  const handleStep = async (action, errors = null) => {
     if (action == "increment" && step < 4 && errors) {
       if (
         step === 1 &&
         !(!values.email || !values.name || !values.username) &&
         !(errors.email && errors.name && errors.username)
       ) {
-        setStep(step + 1);
+        try {
+          const formData = { username: values.username };
+          console.log("formData username -->", formData);
+          const response = await axios.post(
+            `http://localhost:5000/api/user/find-username`,
+            { username: values.username },
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+              withCredentials: true,
+            }
+          );
+          if (response.data.status == true) {
+            setStep(step + 1);
+            return;
+          }
+          if (response.data.status == false) {
+            openNotification(response.data.error, "error");
+            return;
+          }
+        } catch (error) {
+          console.log("Error in username signup API -->", error);
+          openNotification(error.response.data.error, "error");
+          return;
+        }
       }
       if (
         step == 2 &&
