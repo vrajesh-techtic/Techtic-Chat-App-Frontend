@@ -9,65 +9,71 @@ import { customResetPasswordValidator } from '../utils/resetPasswordValidators'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import notificationProvider from '../utils/notificationProvider'
-const { contextHolder, openNotification } = notificationProvider();
 
 const ResetPassword = () => {  
-    // const navigate = useNavigate();
-    // const [loading, setLoading] = useState(false);
+  const { openNotification, contextHolder } = notificationProvider();
 
-    // const initialValues = {
-    //     currPassword: "",
-    //     password: "",
-    //     confirmPassword: ""
-    // }
-    // const {handleBlur, handleChange, errors, touched, values, handleSubmit} = useFormik(
-    //     {
-    //         initialValues: initialValues,
-    //         validationSchema: customResetPasswordValidator,
-    //         onsubmit: async(values)=>{
-    //             try {
-    //                 // const formData = new FormData();
-    //                 const formData = {
-    //                   currPassword: values?.currPassword,
-    //                   password: values?.password,
-    //                   confirmPassword: values?.confirmPassword
-    //                 };
+    const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
+
+    const initialValues = {
+        currPassword: "",
+        password: "",
+        confirmPassword: ""
+    }
+    const {handleBlur, handleChange, errors, touched, values, handleSubmit} = useFormik(
+        {
+            initialValues: initialValues,
+            validationSchema: customResetPasswordValidator,
+            onsubmit: async(values)=>{
+                try {
+                    // const formData = new FormData();
+                    const formData = {
+                      currPassword: values?.currPassword,
+                      password: values?.password,
+                      confirmPassword: values?.confirmPassword
+                    };
             
-    //                 console.log("signup formData -->", formData);
+                    console.log("signup formData -->", formData);
             
-    //                 const response = await axios.post(
-    //                   `http://localhost:5000/api/user/reset-password`,
-    //                   formData,
-    //                   {
-    //                     headers: {
-    //                       "Content-Type": "application/json",
-    //                     },
-    //                     withCredentials: true,
-    //                   }
-    //                 );
+                    const response = await axios.post(
+                      `http://localhost:5000/api/user/reset-password`,
+                      formData,
+                      {
+                        headers: {
+                          "Content-Type": "application/json",
+                        },
+                        withCredentials: true,
+                      }
+                    );
                     
-    //                 if (response.data.status == true) {
-    //                   navigate("/");
-    //                   openNotification(response.data.message, "success");
-    //                   return;
-    //                 }
-    //                 if (response.data.status == false) {
-    //                   openNotification(response.data.error, "error");
-    //                   return;
-    //                 }
-    //               } catch (error) {
-    //                 console.log("Error in signup -->", error);
-    //                 openNotification(error.response.data.error, "error");
-    //                 return;
-    //               }
-    //         }
-    //     }
-    // )
+                    if (response.data.status == true) {
+                      openNotification(response.data.message, "success");
+                      setLoading(true);
+                      setTimeout(()=>{
+                        setLoading(false);
+                        navigate("/");
+                      },1000)
+                      return;
+                    }
+                    if (response.data.status == false) {
+                      setLoading(false);
+                      openNotification(response.data.error, "error");
+                      return;
+                    }
+                  } catch (error) {
+                    console.log("Error in signup -->", error);
+                    setLoading(false);
+                    openNotification(error.response.data.error, "error");
+                    return;
+                  }
+            }
+        }
+    )
   return (
     <HomePage>
-        {/* {contextHolder} */}
-    {/* <form  onSubmit={handleSubmit} className="flex flex-col bg-white w-[35%] z-10 shadow-xl  p-[2%] mx-auto rounded-lg">
-      <div className="text-center font-bold text-xl text-zinc-500">Forgot Password</div>
+     <form  onSubmit={handleSubmit} className="flex flex-col mt-[7%] bg-white w-[35%] z-10 shadow-xl  p-[2%] mx-auto rounded-lg">
+      <div className="text-center font-bold text-xl text-zinc-500">Reset Password</div>
         <Divider style={{ border: "1px solid #e5e7eb" }} className="my-2" />
         <CustomInput
               type="text"
@@ -101,7 +107,7 @@ const ResetPassword = () => {
             />
             <CustomButton className=" p-[1.5%] mt-[2%] w-[100%] shadow-xl  rounded-lg text-center bg-green-400 text-white text-lg font-semibold"
               text={"Submit Password"}/>
-      </form> */}
+      </form>
       </HomePage>
   )
 }
