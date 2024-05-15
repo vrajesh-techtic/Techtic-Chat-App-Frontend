@@ -20,6 +20,7 @@ const EditUserProfile = () => {
   //   const [image, setImage] = useState("");
   const [countryData, setCountryData] = useState([]);
   const [isUploadImage, setIsUploadImage] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -75,7 +76,7 @@ const EditUserProfile = () => {
           dob: values.dob,
         };
 
-        console.log("formData -->", formData);
+        console.log("edit user formData -->", formData);
 
         const response = await axios.post(
           `http://localhost:5000/api/user/update-user`,
@@ -88,18 +89,24 @@ const EditUserProfile = () => {
           }
         );
         if (response.data.status) {
+
           console.log("user data--> ", response.data.data);
           const resp = response.data.data;
           resp.email=email;
           dispatch(saveUserProfile(resp));
-          // navigate("/");
+          setLoading(true);
+          setTimeout(()=>{
+            setLoading(false);
+            navigate("/");
+          },1000)
           openNotification(response.data.message, "success");
           setIsUploadImage(false);
           // console.log("Response -->", response);
         }
       } catch (error) {
+        setLoading(false);
         console.log("Error in edit user profile page -->", error);
-        openNotification(error.message, "error");
+        openNotification(error.message || error.response.data.error, "error");
         return;
       }
     },
@@ -123,6 +130,7 @@ const EditUserProfile = () => {
           handleSubmit={handleSubmit}
           isUploadImage={isUploadImage}
           setIsUploadImage={setIsUploadImage}
+          loading={loading}
         />
       </HomePage>
     </>

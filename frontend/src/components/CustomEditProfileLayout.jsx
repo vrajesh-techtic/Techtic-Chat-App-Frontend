@@ -7,7 +7,6 @@ import { FaRegEdit } from "react-icons/fa";
 
 const CustomEditProfileLayout = ({
   userEmail,
-  userProfileData,
   handleChange,
   handleBlur,
   setValues,
@@ -16,24 +15,21 @@ const CustomEditProfileLayout = ({
   values,
   countryData,
   handleSubmit,
-  isUploadImage,
-  setIsUploadImage,
+  loading
+
 }) => {
   const imageChange = (e) => {
     // console.log("New image", e.target.files[0]);
 
-    if(isUploadImage){
-        setValues((prev) => {
-          let newObj = { ...prev };
-          newObj["profilePic"] = e.target.files[0];
-          // console.log("image -->", newObj.profilePic);
-          return newObj;
-        });
-      }
-
-
+      setValues((prev) => {
+        let newObj = { ...prev };
+        newObj["profilePic"] = e.target.files[0];
+        console.log("image -->", newObj.profilePic);
+        return newObj;
+      });
+    
   };
- 
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -43,14 +39,26 @@ const CustomEditProfileLayout = ({
         Edit Your Profile
       </div>
       <div className="flex flex-row justify-center mb-5">
-        <Image width={100} height={100} className="rounded-full flex flex-row" src={values.profilePic} preview={false}/>
-          <div className="cursor-pointer">
-            <input type="file" className="opacity-0 absolute cursor-pointer " onChange={imageChange}/>
-            <FaRegEdit size={25} className=" cursor-pointer" />
-          </div>
-        
+        <Image
+          width={100}
+          height={100}
+          className="rounded-full flex flex-row"
+          src={values.profilePic}
+          preview={false}
+        />
+        <div className="flex flex-col justify-end">
+          <input
+            type="file"
+            className="opacity-0 absolute cursor-pointer "
+            accept="image/*"
+            name="profilePic"
+            onChange={imageChange}
+            onBlur={handleBlur}
+          />
+          <FaRegEdit size={25} className="cursor-pointer" />
+        </div>
       </div>
-      
+
       <div id="form-input-container">
         <div
           id="email-username"
@@ -151,48 +159,13 @@ const CustomEditProfileLayout = ({
           </div>
         </div>
 
-          {/*Profile pic logic  */}
-
-        {/* <div id="profilePic" className="grid grid-cols-2 gap-5 mt-[2%]">
-          {isUploadImage ? (
-            <CustomInput
-              onChange={imageChange}
-              onBlur={handleBlur}
-              type="file"
-              accept="image/*"
-              label="Select profile picture"
-              name="profilePic"
-              />
-
-          ) : (
-            <div id="upload-image">
-              <div className="font-semibold justify-start text-md mb-1">
-                Profie picture:
-              </div>
-
-              <div className="flex flex-row items-center gap-2">
-                <input
-                  type="text"
-                  className="pointer-events-none border-2 p-[1.5%] placeholder-black h-[10%] rounded-lg w-[85%] "
-                  placeholder={values.profilePic}
-                />
-                <CustomButton
-                  text={"Upload Image"}
-                  onClick={()=>setIsUploadImage(true)}
-                  className={
-                    " bg-red-400 p-[0.4%] text-white rounded font-bold "
-                  }
-                />
-              </div>
-            </div>
-          )}
-        </div> */}
       </div>
       <CustomButton
-        text="Update Profile"
+        text={loading ? "Redirecting to home" :"Update Profile"}
         className={
           " mt-[1%] bg-green-400 p-[0.5%] text-white rounded font-bold text-xl shadow-lg flex ml-auto mr-auto"
         }
+        
       />
     </form>
   );

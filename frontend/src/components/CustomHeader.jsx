@@ -11,6 +11,8 @@ const CustomHeader = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.userObj);
+  // console.log("userData pic-->", userData.profilePic);
+
   const handleSignout = () => {
     localStorage.clear();
     Cookies.remove("access_token");
@@ -57,10 +59,7 @@ const CustomHeader = () => {
     },
   ];
 
-  const handleNavigateToHome = () => {
-    navigate("/");
-    console.log("navigated");
-  };
+
 
   return (
     <div>
