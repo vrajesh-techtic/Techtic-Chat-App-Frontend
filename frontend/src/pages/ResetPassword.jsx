@@ -21,11 +21,11 @@ const ResetPassword = () => {
     password: "",
     confirmPassword: "",
   };
-  const { handleBlur, handleChange, errors, touched, values, handleSubmit } =
+  const { errors, values, handleBlur, handleChange, handleSubmit, touched } =
     useFormik({
       initialValues: initialValues,
       validationSchema: customResetPasswordValidator,
-      onsubmit: async (values) => {
+      onSubmit: async (values) => {
         try {
           // const formData = new FormData();
           const formData = {
@@ -81,7 +81,7 @@ const ResetPassword = () => {
         </div>
         <Divider style={{ border: "1px solid #e5e7eb" }} className="my-2" />
         <CustomInput
-          type="text"
+          type="password"
           placeholder="Enter the current password"
           label="Current Password:"
           name="currPassword"
@@ -92,7 +92,7 @@ const ResetPassword = () => {
           touched={touched.currPassword}
         />
         <CustomInput
-          type="text"
+          type="password"
           placeholder="Enter the new password"
           label="New Password:"
           name="password"
@@ -103,7 +103,7 @@ const ResetPassword = () => {
           touched={touched.password}
         />
         <CustomInput
-          type="text"
+          type="password"
           placeholder="Enter the confirm new password"
           label="Confirm New Password:"
           name="confirmPassword"
@@ -115,7 +115,7 @@ const ResetPassword = () => {
         />
         <CustomButton
           className=" p-[1.5%] mt-[2%] w-[100%] shadow-xl  rounded-lg text-center bg-green-400 text-white text-lg font-semibold"
-          text={"Submit Password"}
+          text={loading ? "Redirecting to Home..." : "Submit Password"}
         />
       </form>
     </HomePage>
