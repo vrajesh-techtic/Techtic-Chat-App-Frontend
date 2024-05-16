@@ -5,11 +5,7 @@ const HomePage = ({ children }) => {
   return (
     <>
       <CustomHeader />
-      {/* <CustomSider /> */}
-
       {children}
-
-      {/* <div onClick={() => handleClick()}>Logout</div> */}
     </>
   );
 };

@@ -1,8 +1,9 @@
 import React from "react";
 import { Layout, Image } from "antd";
-const { Menu, Sider } = Layout;
+const { Sider } = Layout;
 
 const CustomSider = () => {
+  
   const items = [
     {
       profilePic:
@@ -61,7 +62,7 @@ const CustomSider = () => {
         onBreakpoint={(broken) => {
           console.log(broken);
         }}
-        className="border-r h-screen"
+        className="border-r h-full"
       >
           
         {items?.map((user)=>(

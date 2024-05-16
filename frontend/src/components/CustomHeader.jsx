@@ -26,7 +26,7 @@ const CustomHeader = () => {
   const resetPasswordForm=()=>{
     navigate("reset-password")
   }
-  console.log("component re");
+
   const items = [
     {
       label: (
@@ -68,7 +68,7 @@ const CustomHeader = () => {
         style={{
           display: "flex",
         }}
-        className="bg-green-500 text-white items-center justify-between"
+        className="bg-green-500 shadow-md text-white items-center justify-between"
       >
         <div
           className="font-bold text-2xl flex flex-col cursor-pointer"

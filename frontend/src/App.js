@@ -11,7 +11,7 @@ import PageNotFound from "./pages/PageNotFound";
 
 function App() {
   return (
-    <>
+    <div className="h-screen w-screen">
       <Routes>
         {/* <Route path="/" element={<ChatLayout />} /> */}
         {/* <Route path="/" element={<HomePage />} /> */}
@@ -23,7 +23,7 @@ function App() {
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="*" element={<PageNotFound />}/>
       </Routes>
-    </>
+    </div>
   );
 }
 
