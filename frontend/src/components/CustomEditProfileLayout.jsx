@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import dayjs from "dayjs";
 import CustomInput from "../components/CustomInput";
 import CustomButton from "../components/CustomButton";
@@ -18,17 +18,20 @@ const CustomEditProfileLayout = ({
   loading
 
 }) => {
+
+  const [tempUploadImage, setTempUploadImage] = useState("");
+
   const imageChange = (e) => {
     // console.log("New image", e.target.files[0]);
-
       setValues((prev) => {
         let newObj = { ...prev };
         newObj["profilePic"] = e.target.files[0];
-        console.log("image -->", newObj.profilePic);
+        setTempUploadImage(URL.createObjectURL(e.target.files[0]));
         return newObj;
       });
     
   };
+  console.log("upload image -->", tempUploadImage);
 
   return (
     <form
@@ -43,8 +46,9 @@ const CustomEditProfileLayout = ({
           width={100}
           height={100}
           className="rounded-full flex flex-row"
-          src={values.profilePic}
+          src={tempUploadImage ? tempUploadImage : values.profilePic}
           preview={false}
+          id="frame"
         />
         <div className="flex flex-col justify-end">
           <input

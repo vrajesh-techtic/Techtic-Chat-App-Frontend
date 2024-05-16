@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-export const customResetPasswordValidator = ()=>Yup.object({
+export const customResetPasswordValidator = Yup.object({
     currPassword: Yup.string()
     .min(7)
     .trim(true)

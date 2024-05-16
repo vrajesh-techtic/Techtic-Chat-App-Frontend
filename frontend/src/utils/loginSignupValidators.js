@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-export const customLoginValidations = Yup.object({
+export const customLoginValidations = ()=>Yup.object({
   email: Yup.string()
     .email("Please enter valid email")
     .required("Email is required*")
